@@ -1,0 +1,25 @@
+{
+  "name": "search-engine",
+  "version": "1.0.0",
+  "description": "A simple search engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhruv-doshi/search-engine.git"
+  },
+  "author": "Dhruv Doshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhruv-doshi/search-engine/issues"
+  },
+  "homepage": "https://github.com/dhruv-doshi/search-engine#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
