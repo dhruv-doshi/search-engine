@@ -7,13 +7,18 @@ const PORT = process.env.PORT || 5000
 const express = require('express');
 const app = express()
 
+// Use body-parser
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+const filePath = path.join(__dirname, './data.json');
+
 app.get('/search', (req, res) => {
     let keyword =  req.query.query;
 
     let searchResult = []
     let count = 0
-
-    const filePath = path.join(__dirname, './data.json');
 
     let rawdata = fs.readFileSync(filePath);
     let searchData = JSON.parse(rawdata);
@@ -32,7 +37,7 @@ app.get('/search', (req, res) => {
 
     res.json({
         count: count,
-        searchResult: searchResult
+        documents: searchResult
     })
 
 })
@@ -41,15 +46,20 @@ app.post('/document', (req, res) => {
     const id = req.body.id
     const text = req.body.text
 
-    // fs.writeFileSync('./data.json', jsonObj, function (err) {
-    //     if (err) throw err;
-    //     else console.log('Saved json!');
-    //   });
+    let rawdata = fs.readFileSync(filePath);
+    let dataToSave = JSON.parse(rawdata);
 
-    res.send({
+    dataToSave.push({
         id: id,
         text: text
     })
+
+    fs.writeFile(filePath, JSON.stringify(dataToSave), (err) => {
+        if (err) throw err;
+        res.status(200).send("Data Saved!")
+    })
+
+    
 })
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
